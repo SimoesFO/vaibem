@@ -1,0 +1,55 @@
+version: '3.3'
+
+services:
+  api-node-service:
+    build:
+      context: ./
+      dockerfile: ./.docker/node/Dockerfile
+    container_name: api-node-container
+    restart: always
+    ports:
+      - $APP_PORT:$APP_PORT
+    # For production, comment all volumes
+    volumes:
+      - ./:/usr/app
+    # command: npm run dev # For production, change to 'npm start'
+    command: bash -c "
+      yarn typeorm migration:run
+      && yarn dev"
+    networks:
+      - api-postgres-network
+    depends_on:
+      - api-postgres-service
+
+  api-postgres-service:
+    image: postgres
+    container_name: api-postgres-container
+    restart: always
+    ports:
+      - 5432:5432
+    volumes:
+      - ./.docker/db:/var/lib/postgresql/data
+    networks:
+      - api-postgres-network
+    environment:
+      POSTGRES_DB: $DB_DATABASE
+      POSTGRES_USER: $DB_USER
+      POSTGRES_PASSWORD: $DB_PASSWORD
+
+  api-pgadmin-service:
+    image: dpage/pgadmin4
+    container_name: api-pgadmin-container
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: $PGADMIN_DEFAULT_EMAIL
+      PGADMIN_DEFAULT_PASSWORD: $PGADMIN_DEFAULT_PASSWORD
+    ports:
+      - 16543:80
+    networks:
+      - api-postgres-network
+    depends_on:
+      - api-postgres-service
+
+networks:
+  api-postgres-network:
+    driver: bridge
