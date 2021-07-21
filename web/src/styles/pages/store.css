@@ -1,0 +1,60 @@
+.main-store {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  
+  height: auto;
+  padding: 20px;
+
+}
+
+.main-store form {
+  display: flex;
+  flex-direction: column;
+
+  width: 600px;
+  background: #EEE;
+  margin: 20px;
+  padding: 20px;
+  border: 0;
+  border-radius: 1.5rem;
+}
+
+.main-store form h3 {
+  color: #555;
+  font-weight: bold;
+  border-bottom: 1px solid #CCC;
+  padding-bottom: 5px;
+  margin-bottom: 20px;
+}
+
+.main-store form label {
+  color: #777;
+  font-weight: bold;
+  font-size: 0.8rem;
+}
+
+.main-store form input {
+  border-radius: 0.5rem;
+  border: 1px solid #CCC;
+  line-height: 2.3rem;
+  padding: 0px 10px 0px 10px;
+  margin-bottom: 10px;
+}
+
+.main-store form button {
+  color: #FFF;
+  border: 0;
+  background: #53b651;
+  padding: 0.6rem;
+  border-radius: 0.5rem;
+  font-weight: bold;
+  font-size: 1rem;
+  margin-top: 1rem;
+  transition: background-color 0.2s;
+}
+
+.container-signup .container-form form fieldset button:hover {
+  background: #63ce61;
+}

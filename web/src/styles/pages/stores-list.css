@@ -1,0 +1,34 @@
+.actions h3 {
+  color: #555;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.actions .new {
+  display: flex;
+  justify-content: right;
+}
+
+table {
+  color: #444;
+  margin-top: 20px;
+}
+
+table thead tr th {
+  background: #DDD;
+  padding: 5px;
+  text-align: left;
+}
+
+table tbody tr:nth-child(even) {
+  background-color: #E1E1E1;
+}
+
+table tbody tr:hover {
+  background-color: #DDD;
+}
+
+table tbody tr td {
+  padding: 5px;
+}
+

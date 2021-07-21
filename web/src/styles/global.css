@@ -6,7 +6,7 @@
 
 body {
   color: #FFF;
-  background: #ebf2f5;
+  background: rgb(207, 160, 240);;
 }
 
 body main {
@@ -28,14 +28,22 @@ body main .container {
   color: #5C8599;
 }
 
-.btn-primary {
-  background: rgb(56,100,194);
+.btn {
+  font-size: 1rem;
+  padding: 0.5rem;
   border: 0;
+  border-radius: 0.4rem;
+  color: #FFF;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: #2b57b6;
   font-weight: bold;
 }
 
 .btn-primary:hover {
-  background: rgb(65, 113, 216);
+  background: #3766ce;
 }
 
 .btn-success {
@@ -45,6 +53,15 @@ body main .container {
 
 .btn-success:hover {
   background: rgb(100, 216, 85);
+}
+
+.btn-danger {
+  background: rgb(180, 47, 37);
+  border: 0;
+}
+
+.btn-danger:hover {
+  background: rgb(207, 58, 47);
 }
 
 .td-center {

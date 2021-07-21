@@ -21,10 +21,11 @@
 
 .container-main .container-left h1 {
 
-  color: #0cd809;
+  color: #63ce61;
   font-weight: 900;
   font-size: 3rem;
   margin-bottom: 50px;
+  text-align: center;
 }
 
 .container-main .container-left form .div-button {
@@ -33,7 +34,7 @@
 }
 
 .container-main .container-left button {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   padding: 10px 20px;
   border: 0;
   border-radius: 1rem;
@@ -62,11 +63,11 @@
   justify-content: center;
   align-items: center;
 
-  background: #DDD;
-  width: 50%;
+  background: #EEE;
+  min-width: 60%;
   min-height: 100px;
   border-radius: 10px;
-  padding: 20px;
+  padding: 30px 20px 20px 20px;
 }
 
 .container-main .container-left form .div-element {

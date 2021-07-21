@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import 'express-async-errors';
 import 'reflect-metadata';
 import './database/connection';
@@ -9,10 +10,10 @@ const PORT = process.env.APP_PORT;
 const HOST = process.env.APP_HOST;
 
 const app = express();
+
+app.use(cors());
 app.use(express.json());
-
 app.use(routes);
-
 app.use(errorHandler);
 
 app.listen(PORT, HOST, () => {

@@ -3,11 +3,10 @@ aside {
   align-items: center;
   justify-content: space-between;
 
-  background: rgb(56,100,194);
-  background: linear-gradient(180deg, rgba(56,100,194,1) 0%, rgba(45,86,175,1) 47%, rgba(54,101,201,1) 100%); 
+  background: #7B18C1;
   height: 60px;
   padding: 0px 20px;
-  box-shadow: 10px 17px 30px rgba(66, 109, 189, 0.16);
+  box-shadow: 10px 17px 30px rgba(114, 9, 117, 0.16);
 }
 
 aside .title-menu {
@@ -34,11 +33,11 @@ aside .container-menus div {
 }
 
 aside .container-menus div.active {
-  background: rgb(70, 118, 221);
+  background: #951ee9;
 }
 
 aside .container-menus div:hover {
-  background: rgba(63, 112, 218, 0.8);
+  background: #951ee9;
 }
 
 aside .container-menus div a {
@@ -51,10 +50,10 @@ aside .container-menus div a {
 aside .goback button {
   border: 0;
   border-radius: 17px;
-  padding: 5px;
-  background: rgba(60, 107, 209, 0.8);
+  padding: 6px 5px 4px 5px;
+  background: #7B18C1;
 }
 
 aside .goback button:hover {
-  background: rgba(68, 115, 218, 0.8);
+  background: #951ee9;
 }
