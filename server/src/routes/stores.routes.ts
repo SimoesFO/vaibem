@@ -6,10 +6,14 @@ import validation from '../middlewares/validationMiddleware';
 
 const routesStores = Router();
 
-routesStores.post('/', [validation(storeCreateSchema)], StoreController.create);
-routesStores.get('/', StoreController.index);
-routesStores.get('/:id', StoreController.show);
-routesStores.put('/:id', StoreController.update);
-routesStores.delete('/:id', StoreController.destroy);
+routesStores.post(
+  '/',
+  [authMiddleware, validation(storeCreateSchema)],
+  StoreController.create,
+);
+routesStores.get('/', authMiddleware, StoreController.index);
+routesStores.get('/:id', authMiddleware, StoreController.show);
+routesStores.put('/:id', authMiddleware, StoreController.update);
+routesStores.delete('/:id', authMiddleware, StoreController.destroy);
 
 export default routesStores;

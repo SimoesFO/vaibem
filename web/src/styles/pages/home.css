@@ -83,6 +83,8 @@
 .container-main .container-left form .div-password a {
   text-align: right;
   text-decoration: none;
+  padding: 5px 3px 0px 3px;
+  font-size: 0.8rem;
 }
 
 .container-main .container-left form input {

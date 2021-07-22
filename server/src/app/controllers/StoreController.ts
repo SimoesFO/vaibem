@@ -1,6 +1,6 @@
 import { validateOrReject } from 'class-validator';
 import { Request, Response } from 'express';
-import { getCustomRepository } from 'typeorm';
+import { getCustomRepository, Like } from 'typeorm';
 import Store from '../models/Store';
 import StoreRepository from '../repositories/StoreRepository';
 import UserRepository from '../repositories/UserRepository';
@@ -8,8 +8,26 @@ import StoreView from '../view/StoreView';
 
 export default {
   async index(req: Request, res: Response): Promise<Response> {
+    const { search } = req.query;
+
     const repository = getCustomRepository(StoreRepository);
-    const stores = await repository.find();
+    let stores = null;
+    if (!search) {
+      stores = await repository.find();
+    } else {
+      stores = await repository
+        .createQueryBuilder()
+        .where(
+          'name ILIKE :name OR description ILIKE :description OR uf ILIKE :uf OR city ILIKE :city',
+          {
+            name: `%${search}%`,
+            description: `%${search}%`,
+            uf: `%${search}%`,
+            city: `%${search}%`,
+          },
+        )
+        .getMany();
+    }
 
     if (stores.length === 0)
       return res.status(404).json({ message: 'No store found' });

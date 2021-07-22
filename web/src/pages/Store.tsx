@@ -1,10 +1,10 @@
 import { AxiosError } from "axios";
-import { useState, useEffect, FormEvent } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 import { Header } from '../components/Header';
 import api from "../services/api";
-import Swal from 'sweetalert2'
-import withReactContent from 'sweetalert2-react-content'
 import '../styles/pages/store.css';
 
 type StoreParams = {
@@ -17,26 +17,30 @@ interface iValidationError {
 
 export function Store() {
   const { id } = useParams<StoreParams>();
-  const { goBack } = useHistory();
   const history = useHistory();
 
+  const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  const [situation, setSituation] = useState("true");
+  const [uf, setUf] = useState('');
+  const [city, setCity] = useState('');
 
   useEffect(() => {
     if(id) {
-      api.get(`stores/${id}`)
+      const token = localStorage.getItem('token');
+      const config = { headers: { Authorization: `Bearer ${token}` } };
+
+      api.get(`stores/${id}`, config)
         .then(res => {
+          setName(res.data.name);
           setDescription(res.data.description);
-          setSituation(res.data.situation);
+          setUf(res.data.uf);
+          setCity(res.data.city);
+        })
+        .catch(error => {
+          console.log(error?.response?.data?.message);
         });
     }
   }, [id]);
-
-  async function redirectToList(event: FormEvent) {
-    event.preventDefault();
-    goBack();
-  }
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
@@ -50,12 +54,17 @@ export function Store() {
   }
 
   async function save() {
+    const token = localStorage.getItem('token');
+    const config = { headers: { Authorization: `Bearer ${token}` } };
+
     const data = {
+      name,
       description,
-      situation: situation === "true",
+      uf,
+      city,
     };
 
-    await api.post('stores', data)
+    await api.post('stores', data, config)
       .then(res => handleSuccess('Cadastro realizado com sucesso!'))
       .catch(error => {
         handleErrors(error);
@@ -63,14 +72,18 @@ export function Store() {
   }
 
   async function update() {
+    const token = localStorage.getItem('token');
+    const config = { headers: { Authorization: `Bearer ${token}` } };
 
     const data = {
       id,
+      name,
       description,
-      situation: situation === "true",
+      uf,
+      city,
     }
     
-    await api.put(`stores/${id}`, data)
+    await api.put(`stores/${id}`, data, config)
       .then(res => handleSuccess('Cadastro atualizado com sucesso!'))
       .catch(error => {
         handleErrors(error);
@@ -85,16 +98,19 @@ export function Store() {
     }).then((result) => {
 
       if (result.isConfirmed) {
-        history.push('/storeslist');
+        history.push('/stores');
       }
     });
   }
   
   async function handleErrors(errors: AxiosError) {
-    const errorsAll = errors.response?.data?.errors as iValidationError[];
+    let messagesErrors = "Acesso não Autorizado";
 
-    const errorsData = Object.values(errorsAll);
-    let messagesErrors = errorsData.join("<br />");
+    if(errors.response?.status === 400) {
+      const errorsAll = errors.response?.data?.errors as iValidationError[];
+      const errorsData = Object.values(errorsAll);
+      messagesErrors = errorsData.join("<br />");
+    }
 
     const MySwal = withReactContent(Swal)
     MySwal.fire({
@@ -110,20 +126,36 @@ export function Store() {
       <Header menu='stores' />
 
       <main className="main-store">
-        <form>
+        <form onSubmit={handleSubmit}>
           <h3>Estabelecimento</h3>
           
-          <label>Nome:</label>
-          <input type="text" />
+          <label>Nome</label>
+          <input 
+            type="text"
+            placeholder="Digite o nome do estabelecimento"
+            value={ name }
+            onChange={ event => setName(event.target.value) } />
 
           <label>Descrição</label>
-          <input type="text" />
+          <input 
+            type="text"
+            placeholder="Faça uma breve descrição"
+            value={ description }
+            onChange={ event => setDescription(event.target.value) } />
 
           <label>UF:</label>
-          <input type="text" />
+          <input 
+            type="text"
+            placeholder="Digite a sigla do estado"
+            value={ uf }
+            onChange={ event => setUf(event.target.value) } />
           
           <label>Cidade:</label>
-          <input type="text" />
+          <input 
+            type="text"
+            placeholder="Digite o nome da cidade"
+            value={ city }
+            onChange={ event => setCity(event.target.value) } />
 
           <button>Salvar</button>
         </form>

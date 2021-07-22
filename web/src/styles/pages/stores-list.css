@@ -6,7 +6,21 @@
 
 .actions .new {
   display: flex;
-  justify-content: right;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.actions .new .search {
+  display: flex;
+  text-align: center;
+}
+
+.actions .new .search input {
+  border-radius: 0.5rem;
+  border: 1px solid #CCC;
+  line-height: 1.0rem;
+  padding: 0px 10px 0px 10px;
+  margin-right: 10px;
 }
 
 table {

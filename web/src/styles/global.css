@@ -64,6 +64,15 @@ body main .container {
   background: rgb(207, 58, 47);
 }
 
+.btn-search {
+  background: rgb(116, 116, 113);
+  border: 0;
+}
+
+.btn-search:hover {
+  background: rgb(153, 153, 151);
+}
+
 .td-center {
   text-align: center;
 }

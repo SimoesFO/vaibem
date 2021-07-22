@@ -9,7 +9,8 @@ export function Routes() {
       <Route path="/" component={Home} exact />
       <Route path="/signup" component={SignUp} />
       <Route path="/stores" component={StoresList} />
-      <Route path="/store" component={Store} />
+      <Route path="/store" component={Store} exact />
+      <Route path="/store/:id" component={Store} />
     </BrowserRouter>
   )
 }

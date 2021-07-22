@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { useHistory, Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 import { Header } from '../components/Header';
 import api from "../services/api";
-import Swal from 'sweetalert2'
-import withReactContent from 'sweetalert2-react-content';
 import "../styles/pages/stores-list.css";
 
 type TypeStore = {
@@ -21,35 +21,61 @@ type TypeStore = {
 
 export function StoresList() {
   const history = useHistory();
-
+  
   const [stores, setStores] = useState<TypeStore[]>([]);
+  const [search, setSearch] = useState('');
 
   function redirectTo() {
-    history.push("/stores");
+    history.push("/store");
   }
 
 
   useEffect(() => {
-    api.get('stores')
+    const token = localStorage.getItem('token');
+    const config = { headers: { Authorization: `Bearer ${token}` } };
+    api.get('stores', config)
       .then(res => {
         setStores(res.data);
       })
       .catch(error => {
-        //console.log(error.response.data.message);
+        console.log(error?.response?.data?.message);
       });
   }, []);
 
 
-  async function remove(id: string) {
-
-    api.delete(`stores/${id}`)
+  async function find() {
+    const token = localStorage.getItem('token');
+    const config = { headers: { Authorization: `Bearer ${token}` } };
+    api.get(`stores?search=${search}`, config)
       .then(res => {
-        api.get('stores')
+        setStores(res.data);
+      })
+      .catch(error => {
+        if(error?.response?.status === 404) {
+          setStores([]);
+        }
+        console.log(error?.response?.data?.message);
+      });
+  }
+
+
+  async function remove(id: string) {
+    const token = localStorage.getItem('token');
+    const config = { headers: { Authorization: `Bearer ${token}` } };
+    
+    api.delete(`stores/${id}`, config)
+      .then(res => {
+        api.get('stores', config)
           .then(res => {
             setStores(res.data);
-          });
-
-          handleSuccess("Estabelecimento excluído com Sucesso");
+            handleSuccess("Estabelecimento excluído com Sucesso");
+          })
+          .catch(error => {
+            console.log(error?.response?.data?.message);
+          });          
+      })
+      .catch(error => {
+        console.log(error?.response?.data?.message);
       });
   }
 
@@ -72,6 +98,14 @@ export function StoresList() {
           <div className="actions">
             <h3>Estabelecimentos</h3>
             <div className="new">
+              <div className="search">
+                <input 
+                  type="text"
+                  placeholder="Digite o termo que deseja buscar"
+                  value={ search }
+                  onChange={ event => setSearch(event.target.value) } />
+                <button className="btn btn-search" onClick={find}>Pesquisar</button>
+              </div>
               <button className="btn btn-primary" onClick={redirectTo}>Novo</button>
             </div>
           </div>
@@ -99,7 +133,7 @@ export function StoresList() {
                         <td className="td-center">{store.uf}</td>
                         <td>{store.city}</td>
                         <td className="td-center">
-                          <Link to={`/stores/${store.id}`} className="btn btn-success">
+                          <Link to={`/store/${store.id}`} className="btn btn-success">
                             Editar
                           </Link>
                         </td>
