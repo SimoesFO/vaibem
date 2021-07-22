@@ -38,6 +38,7 @@ Este processo pode levar alguns minutos, por favor aguarde até ser finalizado.
 
 7) Exibir todos os estabelecimentos criados.  (Autenticada)
 > GET [http://localhost:3333/api/v1/stores]
+
 > GET [http://localhost:3333/api/v1/stores?search={termo}]
 
 8) Mostra os dados de um estabelecimento específico. (Autenticada)
