@@ -36,20 +36,6 @@ services:
       POSTGRES_USER: $DB_USER
       POSTGRES_PASSWORD: $DB_PASSWORD
 
-  api-pgadmin-service:
-    image: dpage/pgadmin4
-    container_name: api-pgadmin-container
-    restart: always
-    environment:
-      PGADMIN_DEFAULT_EMAIL: $PGADMIN_DEFAULT_EMAIL
-      PGADMIN_DEFAULT_PASSWORD: $PGADMIN_DEFAULT_PASSWORD
-    ports:
-      - 16543:80
-    networks:
-      - api-postgres-network
-    depends_on:
-      - api-postgres-service
-
 networks:
   api-postgres-network:
     driver: bridge
