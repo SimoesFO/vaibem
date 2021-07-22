@@ -1,6 +1,6 @@
 # VaiBem - Processo Seletivo
 Este projeto consiste na prova prática do processo seletivo para desenvolvedor da empresa VaiBem. <br>
-Trata-se da criação de um sistema para cadastrar e gerenciar estabelecimentos comerciais. E cumprindo os requistos do teste, foi criado a parte de cadastro de usuário e autenticação do mesmo, para que este possa acessar o sistema.<br>
+Trata-se da criação de um sistema para cadastrar e gerenciar estabelecimentos comerciais. E cumprindo os requistos do teste, foi criado a parte de cadastro de usuário e autenticação do mesmo utilizando JWT, para que este possa acessar o sistema.<br>
 Esta aplicação consiste em duas partes, uma responsável pelo back-end da aplicação, que basicamente entregará os endpoints (rotas), para que possam ser consumidas, e outra o front-end web que consiste na interface que o usuário irá utilizar.
 
 <div align='center'>
