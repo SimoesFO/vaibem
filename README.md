@@ -36,20 +36,20 @@ Este processo pode levar alguns minutos, por favor aguarde até ser finalizado.
 6) Excluir um usuário. (Autenticada)
 > DELETE [http://localhost:3333/api/v1/users/{id}]
 
-7) Exibir todos os estabelecimentos criados. 
+7) Exibir todos os estabelecimentos criados.  (Autenticada)
 > GET [http://localhost:3333/api/v1/stores]
 > GET [http://localhost:3333/api/v1/stores?search={termo}]
 
-8) Mostra os dados de um estabelecimento específico
+8) Mostra os dados de um estabelecimento específico. (Autenticada)
 > GET [http://localhost:3333/api/v1/stores/{id}]
 
-9) Criar uma novo estabelecimento
+9) Criar uma novo estabelecimento. (Autenticada)
 > POST [http://localhost:3333/api/v1/stores]
 
-10) Atualizar as informações de um estabelecimento
+10) Atualizar as informações de um estabelecimento. (Autenticada)
 > UPDATE [http://localhost:3333/api/v1/stores/{id}]
 
-11) Excluir um estabelecimento
+11) Excluir um estabelecimento. (Autenticada)
 > DELETE [http://localhost:3333/api/v1/stores/{id}]
 
 
